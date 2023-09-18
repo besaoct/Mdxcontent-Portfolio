@@ -1,7 +1,7 @@
 ---
-title: Namaste JavaScript 
+title: Namaste JavaScript first Season notes
 date: 2023-10-19
-tags: ['js' ,'javascript']
+tags: ['js','javascript']
 ---
 
 ### Episode 1 : Execution Context
@@ -156,16 +156,18 @@ console.log(getName)
 
 Output:
 
-> f getName(){
+```js
+>f getName(){
 
-      console.log("Namaste JavaScript);
+      console.log("Namaste JavaScript");
 
 }
 
+```
+
+
 ```js
-
 // code example 5
-
 getName();
 console.log(x);
 console.log(getName)
@@ -180,15 +182,17 @@ function getName(){
 
 Output:
 
+```js
 > Namaste JavaScript
 
 > undefined
 
 > f getName(){
 
-      console.log("Namaste JavaScript);
+      console.log("Namaste JavaScript");
 
 }
+```
 
 ```js
 // code example 6
@@ -207,7 +211,9 @@ var getName = () => {  // use fat arrow function
 
 Output:
 
+```js
 > undefined //it is because they behave as variable and not function.
+```
 
 ---
 
@@ -384,6 +390,7 @@ function a() {
     GEC =  [a:{},[lexical_environment pointer pointing to null]]
 
  ```
+ 
   #### For case -3 
   - First JS engine searches for b in local mem of c(). Nothing is there. 
   - So it goes to the reference of Lexical env of parent a(). Here b = 10 is here. So it takes this value, goes back to c() and console prints it.
