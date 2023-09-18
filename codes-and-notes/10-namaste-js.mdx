@@ -390,7 +390,7 @@ function a() {
     GEC =  [a:{},[lexical_environment pointer pointing to null]]
 
  ```
- 
+
   #### For case -3 
   - First JS engine searches for b in local mem of c(). Nothing is there. 
   - So it goes to the reference of Lexical env of parent a(). Here b = 10 is here. So it takes this value, goes back to c() and console prints it.
@@ -518,7 +518,7 @@ PS: If in any interview when asked "Are let and const hoisted?" explain fully ab
 ### Episode 9 : Block Scope and Shadowing
 
 #### What is a block?
-- Block aka *compound statement* is used to group JS statements together into 1 group. We group them within {...}
+- Block aka *compound statement* is used to group JS statements together into 1 group. We group them within `{...}`
 - The purpose is to group multiple statments at a place where JS expects only 1 statement.
 
 ```js
@@ -540,7 +540,7 @@ if(true){
 }
 ```
 
-* The {} block treats all the statements as one statement.
+* The `{}` block treats all the statements as one statement.
 * The if doesnt have any curly braces in syntax.
 
 #### __BLOCK SCOPE__
