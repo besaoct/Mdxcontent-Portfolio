@@ -1,0 +1,157 @@
+---
+title: Drawing whiteboard in Next.js using TypeScript, and Tailwind CSS
+date: 2023-07-27
+tags: ['react','nextjs', 'tool', 'typescript']
+---
+
+Greetings, fellow developers! 👋
+
+To create a simple drawing whiteboard using Next.js, TypeScript, and Tailwind CSS, along with a reset button, follow these steps:
+
+1. Set up a new Next.js project with TypeScript support.
+2. Install Tailwind CSS and the required dependencies.
+3. Create the whiteboard component and implement the drawing functionality.
+4. Add the reset button to clear the whiteboard.
+
+Here's the step-by-step implementation:
+
+### Set up a new Next.js project with TypeScript support
+
+```bash
+npx create-next-app@12 my-drawing-whiteboard
+cd my-drawing-whiteboard
+```
+
+### Install Tailwind CSS and the required dependencies
+
+```bash
+npm install tailwindcss@latest postcss@latest autoprefixer@latest
+```
+
+Create a `tailwind.config.js` file in the root of the project with the following content:
+
+```js
+module.exports = {
+  mode: 'jit',
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  darkMode: false,
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+};
+```
+
+Next, create a `styles/globals.css` file with the following content:
+
+```css
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+```
+
+Update the `pages/_app.tsx` file to import the CSS file:
+
+```tsx
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
+```
+
+### Create the whiteboard component and implement the drawing functionality
+
+Create a new file `components/Whiteboard.tsx` and add the following content:
+
+```tsx
+import React, { useRef, useState } from 'react';
+
+const Whiteboard: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [resetCount, setResetCount] = useState(0);
+
+  const handleMouseDown = () => {
+    setIsDrawing(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsDrawing(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!isDrawing) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+
+    if (ctx) {
+      const x = e.nativeEvent.offsetX;
+      const y = e.nativeEvent.offsetY;
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+  };
+
+  const handleReset = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      setResetCount(resetCount + 1);
+    }
+  };
+
+  return (
+    <div className="w-full h-screen flex flex-col items-center justify-center">
+      <canvas
+        ref={canvasRef}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        className="border border-gray-500"
+        width="800"
+        height="600"
+      ></canvas>
+      <button
+        onClick={handleReset}
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+      >
+        Reset
+      </button>
+    </div>
+  );
+};
+
+export default Whiteboard;
+```
+
+### Update the `pages/index.tsx` file to use the whiteboard component.
+
+```tsx
+import React from 'react';
+import Whiteboard from '../components/Whiteboard';
+
+const Home: React.FC = () => {
+  return (
+    <div className="bg-gray-200 min-h-screen">
+      <h1 className="text-3xl font-bold text-center pt-8">Drawing Whiteboard</h1>
+      <Whiteboard />
+    </div>
+  );
+};
+
+export default Home;
+```
+
+Now, when you run the Next.js development server (`npm run dev`), you should see a drawing whiteboard with a reset button at the top. You can draw on the whiteboard using your mouse, and clicking the reset button will clear the drawing.
+
+Remember that this is a simple implementation, and you can further enhance it with features like different colors, brush sizes, saving drawings, etc., based on your requirements.

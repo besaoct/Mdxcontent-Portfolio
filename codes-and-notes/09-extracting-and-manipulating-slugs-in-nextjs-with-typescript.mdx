@@ -1,0 +1,117 @@
+---
+title: Extracting and Manipulating Slugs in Next.js with TypeScript
+date: 2023-07-28
+tags: ['slug','nextjs','typescript', 'routing']
+---
+
+In this tutorial, we'll learn how to extract and manipulate slugs in a Next.js application using TypeScript. We'll cover the process of splitting a slug into its individual parts, extracting a numeric value from it, and then combining these parts to create a new slug.
+
+### Prerequisites
+
+Before getting started, ensure you have the following:
+
+1. Basic understanding of React and Next.js.
+2. Familiarity with TypeScript.
+
+### Step 1: Setting up a Next.js project
+
+First, create a new Next.js project if you don't have one already:
+
+```bash
+npx create-next-app@12 my-slug-tutorial
+cd my-slug-tutorial
+```
+
+### Step 2: Create a new TypeScript component
+
+Next, let's create a new TypeScript component where we'll implement the slug extraction and manipulation logic.
+
+Create a new file `components/SlugManipulation.tsx` and add the following code:
+
+```tsx
+// components/SlugManipulation.tsx
+'use client'
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+
+const SlugManipulation = () => {
+  const router = usePathname();
+  const { Slug } = router;
+
+  useEffect(() => {
+    if (typeof Slug === 'string') {
+      // Extracting the num and slug parts from the Slug
+      const [numString, ...slugParts] = Slug.split('-');
+
+      // Parsing the num string to a number
+      const num = parseInt(numString, 10);
+
+      // Joining the remaining slug parts to form the new slug
+      const slug = slugParts.join('-');
+
+      // Creating numslug
+      const numslug = `${num < 10 ? '0' : ''}${num}-${slug}`;
+
+      // Logging the values
+      console.log('num:', num);
+      console.log('slug:', slug);
+      console.log('numslug:', numslug);
+    }
+  }, [Slug]);
+
+  return null;
+};
+
+export default SlugManipulation;
+```
+
+### Step 3: Integrate the component
+
+Now, let's integrate the `SlugManipulation` component into a page. For demonstration purposes, we'll use the `pages/index.tsx` file.
+
+```tsx
+// pages/index.tsx
+import React from 'react';
+import SlugManipulation from '../components/SlugManipulation';
+
+const HomePage = () => {
+  return (
+    <div>
+      <h1>Slug Manipulation in Next.js</h1>
+      <SlugManipulation />
+    </div>
+  );
+};
+
+export default HomePage;
+```
+
+### Step 4: Start the development server
+
+Now that we've set up the component and integrated it into the page, let's start the development server to see our results:
+
+```bash
+npm run dev
+```
+
+### Step 5: Test the slug manipulation
+
+With the development server running, navigate to the following URL in your browser:
+
+```bash
+http://localhost:3000/07-this-is-shafin
+```
+
+Open the browser's developer console (usually accessible through `Ctrl+Shift+I` or `Cmd+Option+I`) to view the output.
+
+You should see the following log messages:
+
+```bash
+num: 7
+slug: this-is-shafin
+numslug: 07-this-is-shafin
+```
+
+### Conclusion
+
+Congratulations! You've successfully learned how to extract and manipulate slugs in a Next.js application using TypeScript. By following this tutorial, you've gained a better understanding of how to split and join slug strings to obtain specific values. You can now apply this knowledge to various scenarios in your Next.js projects, such as creating dynamic routes and handling user-friendly URLs.

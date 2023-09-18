@@ -1,0 +1,141 @@
+---
+title: Implementing Previous and Next Buttons in React/Next.js with TypeScript
+date: 2023-07-28
+tags: ['react','nextjs','typescript']
+---
+
+### Introduction
+
+In this tutorial, we will learn how to implement previous and next buttons for navigating through posts in a React/Next.js application using TypeScript. This feature is particularly useful when you want to provide a seamless user experience for browsing through content, such as blog posts or articles. We will utilize the power of React/Next.js and TypeScript to create a dynamic and responsive navigation system.
+
+### Prerequisites
+
+Before diving into this tutorial, you should have a basic understanding of React, Next.js, and TypeScript. Familiarity with components, state management, and routing in React/Next.js will be beneficial for better comprehension.
+
+### Setting up the Project
+
+To get started, make sure you have Node.js and npm (Node Package Manager) installed on your system. Create a new Next.js project with TypeScript support using the following command:
+
+```bash
+npx create-next-app@12 nextjs-blog
+```
+
+Navigate to the project directory:
+
+```bash
+cd nextjs-blog
+```
+
+### Creating the Post Data
+
+Let's begin by creating a data structure to represent our posts. Open the `posts.ts` file in the `data` folder and add the following data:
+
+```typescript
+// data/posts.ts
+
+export interface Post {
+  postId: string;
+  postNum: number;
+}
+
+const myposts: Post[] = [
+  {
+    postId: '07-monitoring-network-status-nextjs-react-app',
+    postNum: 7
+  },
+  {
+    postId: '04-drawing-whiteboard-in-nextjs-using-ts-tailwindcss',
+    postNum: 4
+  },
+  {
+    postId: '01-adding-syntax-highlighting-nextjs-typescript-tailwind-css',
+    postNum: 1
+  },
+  {
+    postId: '06-how-to-create-a-reusable-card-in-nextjs-using-typescript',
+    postNum: 6
+  },
+  {
+    postId: '05-essential-javascript-concepts-before-embarking-on-react',
+    postNum: 5
+  },
+  { postId: '03-disable-blue-highlight-on-tap-css', 
+    postNum: 3 
+  },
+  {
+    postId: '02-cpp-desktop-application-ideas-for-beginners',
+    postNum: 2
+  }
+];
+
+export default myposts;
+```
+
+### Implementing the Navigation Logic
+
+In this step, we will implement the logic for the previous and next buttons. Open the `pages/posts/[postId].tsx` file and replace its content with the following code:
+
+```tsx
+// pages/posts/[postId].tsx
+'use client'
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { Button } from 'your-button-library'; // Replace with your actual button component
+
+import myposts, { Post } from '../../data/posts';
+
+const PostPage: React.FC = () => {
+  const router = usePathname();
+  const { postId } = router;
+  const currentPageNum = myposts.find((post) => post.postId === postId)?.postNum;
+
+  const nextPostNum = currentPageNum + 1;
+  const prevPostNum = currentPageNum - 1;
+  const nextPost: Post | undefined = myposts.find((post) => post.postNum === nextPostNum);
+  const prevPost: Post | undefined = myposts.find((post) => post.postNum === prevPostNum);
+
+  const maxPostNum = Math.max(...myposts.map((post) => post.postNum));
+  const minPostNum = Math.min(...myposts.map((post) => post.postNum));
+
+  const isNextDisabled = nextPost === undefined || nextPost.postNum > maxPostNum;
+  const isPrevDisabled = prevPost === undefined || prevPost.postNum < minPostNum;
+
+  return (
+    <div>
+      {/* Your post content goes here */}
+      <h1>Post Title</h1>
+      <p>Post content goes here...</p>
+
+      {/* Navigation Buttons */}
+      <div className="flex flex-row gap-4 justify-between">
+        <Link href={isPrevDisabled ? '#' : `/posts/${prevPost?.postId}`}>
+          <Button className={isPrevDisabled ? 'pointer-events-none hidden' : ''}>
+            &lt; Back
+          </Button>
+        </Link>
+        <Link href={isNextDisabled ? '#' : `/posts/${nextPost?.postId}`}>
+          <Button className={isNextDisabled ? 'pointer-events-none hidden' : ''}>
+            Next &gt;
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default PostPage;
+```
+
+### Conclusion
+
+Congratulations! You have successfully implemented previous and next buttons in your React/Next.js application using TypeScript. Users can now navigate through posts with ease, enhancing their browsing experience. This navigation logic can be extended to various scenarios, such as displaying images, products, or any content that requires sequential traversal.
+
+Remember to customize the button component to match your project's styling and design. Feel free to explore other features to enhance the user experience further.
+
+Happy coding! 🚀
+
+### Additional Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs)

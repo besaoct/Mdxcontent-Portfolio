@@ -1,0 +1,133 @@
+---
+title: How to create a reusable card in Next.js using TypeScript
+date: 2023-07-22
+tags: ['next.js','typescript','dry']
+---
+
+
+Hey there, fellow developers! 👋
+
+In this tutorial, we'll explore how to create reusable cards in a Next.js application using the power of TypeScript. Cards are a common UI element in web development, and having a reusable card component can save you time and effort in your projects.
+
+### Prerequisites
+
+Before we begin, make sure you have the following set up:
+
+1. Node.js and npm installed on your system.
+2. Basic familiarity with Next.js and React concepts.
+
+### Setting up a Next.js Project
+
+Let's start by creating a new Next.js project. If you already have one, feel free to skip this step.
+
+```bash
+npx create-next-app my-card-project
+cd my-card-project
+```
+
+### Installing TypeScript
+
+Next, we'll add TypeScript to our project. TypeScript provides static type checking, which enhances code quality and reduces bugs.
+
+```bash
+npm install --save-dev typescript @types/react @types/node
+```
+
+### Creating the Reusable Card Component
+
+Now that our project is set up with TypeScript, let's create our reusable card component. Inside the `components` folder in your project root, create a new file called `Card.tsx`.
+
+```tsx
+// components/Card.tsx
+import React from 'react';
+import styles from './Card.module.css';
+
+type CardProps = {
+  title: string;
+  content: string;
+};
+
+const Card: React.FC<CardProps> = ({ title, content }) => {
+  return (
+    <div className={styles.card}>
+      <h2>{title}</h2>
+      <p>{content}</p>
+    </div>
+  );
+};
+
+export default Card;
+```
+
+In this example, we're defining a simple card component with two props: `title` and `content`. The component will display the provided title and content within a styled div.
+
+### Styling the Card Component
+
+To style the card component, we'll use CSS Modules. Create a new file called `Card.module.css` inside the `components` folder:
+
+```css
+/* components/Card.module.css */
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 8px;
+}
+
+p {
+  color: #444;
+}
+```
+
+Feel free to customize the styles according to your design preferences.
+
+### Using the Reusable Card Component
+
+Now that we have our reusable card component ready, let's use it in our pages. For demonstration purposes, let's add it to the `index.tsx` page.
+
+```tsx
+// pages/index.tsx
+import React from 'react';
+import Card from '../components/Card';
+
+const HomePage: React.FC = () => {
+  return (
+    <div>
+      <h1>My Next.js TypeScript Card App</h1>
+      <Card title="Card 1" content="This is the content of Card 1." />
+      <Card title="Card 2" content="And this is the content of Card 2." />
+    </div>
+  );
+};
+
+export default HomePage;
+```
+
+You can use the `Card` component in any page or component of your Next.js project, making it highly reusable and maintaining a consistent design across your application.
+
+### Running the Application
+
+Now that we've created our reusable card component, let's run the Next.js application and see it in action.
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` in your browser, and you should see your homepage displaying the two cards with their respective titles and content.
+
+That's it! You've successfully built a reusable card component in Next.js using TypeScript. Now you can leverage this component throughout your project to create beautifully styled cards with ease.
+
+Happy coding! 😊
+
+---
+
+I hope you find this tutorial helpful in creating reusable cards with Next.js and TypeScript. By following these steps, you can now build visually appealing cards and use them across your Next.js applications efficiently.
+
+Happy coding and building amazing user interfaces! 🚀
+
+ #Nextjs #TypeScript #WebDevelopment #React #FrontEndDevelopment

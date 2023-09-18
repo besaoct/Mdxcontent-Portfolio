@@ -1,0 +1,30 @@
+---
+title: How to Disable Blue Highlight on Tap Using CSS
+date: 2023-07-22
+tags: ['css','tricks','new']
+---
+
+
+Greetings, web developers! 👋
+
+Today, I'm excited to share an invaluable CSS tip that will elevate your user experience on touch devices. Have you ever encountered that pesky blue highlight that appears when users tap on elements like buttons and links? Well, fret no more! With this straightforward CSS technique, you can wave goodbye to that annoying blue selection and create a smoother, more professional user interface.
+
+The key to achieving this lies in the CSS `user-select` property, which allows us to control the selection behavior of specific elements. By employing the following CSS code, you can effortlessly disable the blue highlight on tap:
+
+```css
+/* Disable blue highlight on tap */
+element-selector {
+  -webkit-tap-highlight-color: transparent; /* For Safari and older versions of iOS */
+  user-select: none; /* For newer versions of iOS, Android, and modern browsers */
+}
+```
+
+By setting the `tap-highlight-color` to `transparent` for Safari and related browsers, along with `user-select: none` for modern browsers, you'll successfully prevent the appearance of the dreaded blue highlight on tap.
+
+A word of caution, though: while this technique works wonders, it also disables text selection within the targeted elements. Therefore, exercise care when applying it to elements requiring text selection, such as input fields or content areas. In such cases, it's best to limit the trick's application to non-textual elements.
+
+Remember, refining the user experience often lies in the finer details, and eliminating the blue highlight on tap can significantly enhance the overall feel of your website on touch devices. Give it a try, and happy coding!
+
+Happy coding! 😊
+
+ #CSS #WebDevelopment #UserExperience #MobileDesign
